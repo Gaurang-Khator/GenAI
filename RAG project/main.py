@@ -1,13 +1,14 @@
 from dotenv import load_dotenv 
 from langchain_mistralai import ChatMistralAI 
-from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain_core.prompts import ChatPromptTemplate 
 
 load_dotenv()
 
 model = ChatMistralAI(model="mistral-small-2506")
 
-data = TextLoader(r"D:\Development\GenAI\RAG project\document loaders\notes.txt")
+# data = TextLoader(r"D:\Development\GenAI\RAG project\document loaders\notes.txt")
+data = PyPDFLoader(r"D:\Development\GenAI\RAG project\document loaders\cs-fundamentals.pdf")
 docs = data.load()
 
 template = ChatPromptTemplate.from_messages([
@@ -15,7 +16,7 @@ template = ChatPromptTemplate.from_messages([
     ("human", "{data}")
 ])
 
-prompt = template.format_messages(data = docs[0].page_content)
+prompt = template.format_messages(data = docs[4].page_content)
 
 response = model.invoke(prompt)
 

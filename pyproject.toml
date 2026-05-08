@@ -13,5 +13,6 @@ dependencies = [
     "langchain-groq>=1.1.2",
     "langchain-mistralai>=1.1.4",
     "langchain-openai>=1.1.14",
+    "pypdf>=6.10.2",
     "python-dotenv>=1.2.2",
 ]
