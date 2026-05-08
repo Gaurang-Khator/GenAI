@@ -7,8 +7,8 @@ load_dotenv()
 
 model = ChatMistralAI(model="mistral-small-2506")
 
-# data = TextLoader(r"D:\Development\GenAI\RAG project\document loaders\notes.txt")
-data = PyPDFLoader(r"D:\Development\GenAI\RAG project\document loaders\cs-fundamentals.pdf")
+# data = TextLoader(r"D:\Development\GenAI\RAG project\document loaders\notes.txt")                #Creating object of TextLoader class
+data = PyPDFLoader(r"D:\Development\GenAI\RAG project\document loaders\cs-fundamentals.pdf")       #Creating object of PyPDFLoader class
 docs = data.load()
 
 template = ChatPromptTemplate.from_messages([
