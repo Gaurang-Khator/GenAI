@@ -8,9 +8,16 @@ load_dotenv()
 
 model = ChatMistralAI(model="mistral-small-2506")
 
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size = 1000,
+    chunk_overlap = 200
+)
+
 # data = TextLoader(r"D:\Development\GenAI\RAG project\document loaders\notes.txt")                #Creating object of TextLoader class
 data = PyPDFLoader(r"D:\Development\GenAI\RAG project\document loaders\deeplearning.pdf")       #Creating object of PyPDFLoader class
 docs = data.load()
+
+chunks = splitter.split_documents(docs)
 
 template = ChatPromptTemplate.from_messages([
     ("system", "You are a helpful assistant that summarizes the given document in 10 lines."),
