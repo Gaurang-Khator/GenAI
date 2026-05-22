@@ -24,7 +24,7 @@ template = ChatPromptTemplate.from_messages([
     ("human", "{data}")
 ])
 
-prompt = template.format_messages(data = docs[4].page_content)
+prompt = template.format_messages(data = docs)
 
 response = model.invoke(prompt)
 

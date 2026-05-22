@@ -9,3 +9,4 @@ langchain-mistralai
 pypdf
 beautifulsoup4
 langchain_text_splitters
+chromadb
