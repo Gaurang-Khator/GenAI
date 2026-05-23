@@ -10,3 +10,4 @@ pypdf
 beautifulsoup4
 langchain_text_splitters
 chromadb
+langchain_classic
