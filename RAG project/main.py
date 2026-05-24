@@ -1,16 +1,70 @@
-from dotenv import load_dotenv 
-from langchain_mistralai import ChatMistralAI 
-from langchain_community.document_loaders import TextLoader, PyPDFLoader
-from langchain_core.prompts import ChatPromptTemplate 
-from langchain_text_splitters import RecursiveCharacterTextSplitter 
-
+from dotenv import load_dotenv
 load_dotenv()
 
-model = ChatMistralAI(model="mistral-small-2506")
+from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_core.prompts import ChatPromptTemplate 
 
 
-template = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant that summarizes the given document in 10 lines."),
-    ("human", "{data}")
-])
+llm = ChatMistralAI(model = "mistral-small-2506")
 
+embedding_model = MistralAIEmbeddings(model = "mistral-embed")
+
+vector_store = Chroma(
+    persist_directory = "chroma_db",
+    embedding_function = embedding_model
+)
+
+retriever = vector_store.as_retriever(
+    search_type = "mmr",
+    search_kwargs = {
+        "k" : 4,
+        "fetch_k": 10,
+        "lambda_mult": 0.5
+    }
+)
+
+#prompt template
+
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", 
+         """You are a helpful AI assistant.
+         Use ONLY the provided context to answer the question.
+         
+         If the answer is not present in the context, say "I could not find the answer in the document."
+         """
+        ),
+        ("human",
+         """ Context: {context}
+            Question: {question}
+         """
+        )
+    ]
+)
+
+print("=== Welcome to the RAG system ===")
+
+print("Press 0 to exit chat.")
+
+while (True):
+    query = input("You: ")
+
+    if query == "0":
+        print("Exiting chat. Thank you !!")
+        break
+
+    docs = retriever.invoke(query)
+
+    context = "\n\n".join(
+        [doc.page_content for doc in docs]
+    )
+
+    final_prompt = prompt.invoke({
+        "context": context,
+        "question": query
+    })
+
+    response = llm.invoke(final_prompt)
+
+    print(f"\n AI: {response.content}\n")
