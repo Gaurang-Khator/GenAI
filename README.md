@@ -1,1 +1,1 @@
-Learning Generative AI (Langchain, RAG, Langgraph)
+Learning Generative & Agentic AI ( Langchain , RAG , Langgraph )
