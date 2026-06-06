@@ -17,6 +17,7 @@ dependencies = [
     "langchain-mistralai>=1.1.4",
     "langchain-openai>=1.1.14",
     "langchain-text-splitters>=1.1.2",
+    "langgraph>=1.1.8",
     "pypdf>=6.10.2",
     "python-dotenv>=1.2.2",
 ]

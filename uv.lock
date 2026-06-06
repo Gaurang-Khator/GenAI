@@ -672,6 +672,7 @@ dependencies = [
     { name = "langchain-mistralai" },
     { name = "langchain-openai" },
     { name = "langchain-text-splitters" },
+    { name = "langgraph" },
     { name = "pypdf" },
     { name = "python-dotenv" },
 ]
@@ -690,6 +691,7 @@ requires-dist = [
     { name = "langchain-mistralai", specifier = ">=1.1.4" },
     { name = "langchain-openai", specifier = ">=1.1.14" },
     { name = "langchain-text-splitters", specifier = ">=1.1.2" },
+    { name = "langgraph", specifier = ">=1.1.8" },
     { name = "pypdf", specifier = ">=6.10.2" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
 ]
