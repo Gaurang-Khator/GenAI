@@ -12,3 +12,4 @@ langchain_text_splitters
 chromadb
 langchain_classic
 langgraph
+langchain_chroma
